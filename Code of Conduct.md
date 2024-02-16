@@ -42,3 +42,8 @@ Team meetings are scheduled biweekly as follows:
 
 * Mondays: 2:00 pm - 2:20 pm
 * Fridays: 1:30 pm - 1:50 pm
+* 
+
+## Signed 
+
+Kanyin, Ethan, Niloofar, Alex
