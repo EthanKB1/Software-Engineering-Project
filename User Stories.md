@@ -1,8 +1,8 @@
 # User Stories 
-## Stakeholders:
-•	End Users
-•	Project Team
-•	The Client (Our Organisation)
+## Personas:
+•	Sophia
+
+•	Alex
 
 ## End User
 As an end user, I want a user-friendly interface that allows me to explore and navigate through the website. 
