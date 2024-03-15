@@ -5,7 +5,7 @@
 •	Alex
 
 ## Alex -
-As a user, I want to be able to quickly generate population reports for different regions or countries, so I can analyse demographic data and understand the people living there. @ 
+As a user, I want to be able to quickly generate population reports for different regions or countries, so I can analyse demographic data and understand the people living there.
 
 As a user, I want to choose filters for the search, such as age groups and gender, so the search will show specific details that match the needs of different projects. 
 
