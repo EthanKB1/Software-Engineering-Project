@@ -59,6 +59,22 @@ app.post("/allCities/:id", async (req, res) => {
     return res.redirect(`/allCities/${cityId}`);
 });
 
+//Returns JSON array of cities
+app.get("/api/allCities", async (req, res) => {
+    const [rows, fields] = await db.getCities();
+    return res.send(rows);
+});
+
+//All Countries
+app.get("allCountries", async (req, res) => {
+    const [rows, fields] = await db.getCountries();
+    return res.render("countries", { rows, fields });
+});
+
+app.get("/allCountries/:id", async (req, res) => {
+    const 
+} )
+
 app.listen(port, () => {
     console.log('Server ready!');
     console.log('The port is: ' + port);
