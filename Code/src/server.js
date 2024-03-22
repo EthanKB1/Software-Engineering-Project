@@ -72,8 +72,25 @@ app.get("allCountries", async (req, res) => {
 });
 
 app.get("/allCountries/:id", async (req, res) => {
-    const 
-} )
+    const countryCode = req.params.id;
+    const country = await db.getCountry(countryCode);
+    return res.render("country", { country });
+});
+
+app.post("/allCountries/:id", async (req, res) => {
+    const countryCode = req.params.id;
+    const { name } = req.body;
+    const sql = `
+    UPDATE country
+    SET Name = '${name}'
+    WHERE ID = '${countryCode}';
+  `;
+    await conn.execute(sql);
+    return res.redirect(`/countries/${countryCode}`);
+});
+
+//All countryLang
+
 
 app.listen(port, () => {
     console.log('Server ready!');
