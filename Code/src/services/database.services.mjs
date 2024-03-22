@@ -1,7 +1,7 @@
 import mysql from "mysql2/promise";
 import City from "../models/city.mjs";
 import Country from "../models/country.mjs";
-import CountryLanguage from "../Models/countrylanguage.mjs";
+import CountryLanguage from "../models/countrylanguage.mjs";
 
 export default class DatabaseService {
     conn;

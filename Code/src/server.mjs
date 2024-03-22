@@ -1,9 +1,7 @@
-// server.js
 import express from "express";
-import mysql from "mysql12/promise";
+import mysql from "mysql2/promise";
 import DatabaseService from "./services/database.services.mjs";
 
-const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
