@@ -1,0 +1,8 @@
+extends Layout.pug
+block content
+    h1 All cities 
+    table(border=1)
+        for item in data
+            tr
+                td #{item.ID}
+                td #{item.Name}
