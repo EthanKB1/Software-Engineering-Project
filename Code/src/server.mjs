@@ -88,7 +88,28 @@ app.post("/allCountries/:id", async (req, res) => {
 });
 
 //All countryLang
+app.get("/allLanguages", async (req, res) => {
+    const [rows, fields] = await db.getLanguages();
+    return res.render("languages", {rows, fields});
+});
 
+app.get("/allLanguages/:id", async (req, res) => {
+    const Language = req.params.id;
+    const language = await db.getLanguages(Language);
+    return res.render("language", { Language });
+});
+
+app.post("/allLanguages/:id", async (req, res) =>  {
+    const Language = req.params.id;
+    const { name } = req.body;
+    const sql = `
+    UPDATE countryLanguage
+    SET Name = '${name}'
+    WHERE ID = '${Language}';
+  `;
+    await conn.execute(sql);
+    return res.redirect(`/languages/${Language}`);
+});
 
 app.listen(port, () => {
     console.log('Server ready!');
