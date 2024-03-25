@@ -4,7 +4,8 @@ body {
   font-family: Arial, sans-serif; /* Set a base font family */
   margin: 1; /* Remove default margin from body */
   padding: 0; /* Remove default padding from body */
-  color: #000000; /* Set link color */
+  color: #1a1717; /* Set link color */
+  background-color: #b5a3ef;
 }
 
 h1, h2, h3, h4 {
@@ -13,7 +14,7 @@ h1, h2, h3, h4 {
 
 a {
   text-decoration: none; /* Remove underline from links */
-  color: #09090a; /* Set link color */
+  color: #9292e4; /* Set link color */
 }
 
 a:hover {
@@ -36,7 +37,7 @@ nav {
   display: grid; /* Enable grid layout */
   text-align: center; /* Center content horizontally */
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Define columns */
-  background-color: #dcf5fa; /* Light background for navigation */
+  background-color: #3b197d; /* Light background for navigation */
   padding: 1rem; /* Add some padding for navigation links */
 }
 
