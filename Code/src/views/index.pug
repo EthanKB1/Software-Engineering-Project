@@ -1,15 +1,21 @@
 extends layout.pug
-block content 
-    h1 Hello Welcome to our Application!
-    a(href='//localhost:3000/allCities') Cities, 
-
-    a(href='//localhost:3000/allCountries') Countries, 
-
-    a(href='//localhost:3000/allLanguages') Languages,
-
-    h3 This is the welcome page
-    p ----------------------------------------
-    p Introduction to users and what our website is for.
-    p -------------------------------------------------
+block appContent 
+    title WorldPop
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="style.css")  
+    img(src="static/worldMap.jpg", alt="World Map")
+    body
+        h3 About WorldPop
+        p A paragraph describing WorldPop's purpose and mission. 
+        section.explore-population
+        h3 Explore Population Data
+        ul
+            li 
+                a(href="/continents") Population by Continents
+            li 
+                a(href="/regions") Population by Regions
+            li 
+                a(href="/districts") Population by Districts
     
 //- all this is from the exercise and can be used as a template for when developement actually starts
