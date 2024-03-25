@@ -1,59 +1,69 @@
 html,
+/* Basic Styles */
 body {
-  font-size: 14px;
-  font-family: "Segoe UI", sans-serif;
-  background-color: #eeeeee;
-  margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif; /* Set a base font family */
+  margin: 1; /* Remove default margin from body */
+  padding: 0; /* Remove default padding from body */
+  color: #000000; /* Set link color */
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+h1, h2, h3, h4 {
+  margin: 1em 0; /* Set some margin for headings */
 }
 
-.layout {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0rem 3rem;
+a {
+  text-decoration: none; /* Remove underline from links */
+  color: #007bff; /* Set link color */
+}
+
+a:hover {
+  color: #0056b3; /* Change link color on hover */
+}
+
+/* Header Styles */
+header {
+  background-color: #f9f8fa; /* Light background for header */
+  padding: 1rem 2rem; /* Add some padding for header content */
 }
 
 h1 {
-  font-size: xx-large;
-  margin: 0;
-  padding: 0;
+  font-size: 2em; /* Increase font size for main heading */
+  text-align: center; /* Center content horizontally */
 }
 
-h2 {
-  margin: 0;
-  margin-bottom: 1rem;
-  padding: 0;
-}
-
+/* Update your nav styles */
 nav {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1rem 0rem;
-}
-
-nav b {
-  font-size: large;
+  display: grid; /* Enable grid layout */
+  text-align: center; /* Center content horizontally */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Define columns */
+  background-color: #dcf5fa; /* Light background for navigation */
+  padding: 1rem; /* Add some padding for navigation links */
 }
 
 nav a {
-  color: #181818;
-  text-decoration: none;
+  margin: 0; /* Remove default margin from links */
 }
 
-nav a:hover {
-  color: cornflowerblue;
+
+
+/* Image Styles */
+.image-container {
+  text-align: center; /* Center the image horizontally */
+  margin: 2rem auto; /* Add margin around the image container */
 }
 
-.layout-content {
-  padding-top: 1.5rem;
+img {
+  width: 60%; /* Set a width for the image */
+}
+
+/* About Section Styles */
+section.explore-population {
+  margin-top: 2rem; /* Add margin above the explore section */
+}
+
+/* Footer Styles */
+footer {
+  text-align: center; /* Center the footer content */
+  padding: 1rem; /* Add some padding for footer content */
+  background-color: #f8f9fa; /* Light background for footer */
 }
