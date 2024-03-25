@@ -13,7 +13,7 @@ h1, h2, h3, h4 {
 
 a {
   text-decoration: none; /* Remove underline from links */
-  color: #007bff; /* Set link color */
+  color: #09090a; /* Set link color */
 }
 
 a:hover {
@@ -22,7 +22,7 @@ a:hover {
 
 /* Header Styles */
 header {
-  background-color: #f9f8fa; /* Light background for header */
+  background-color: #885ab7; /* Light background for header */
   padding: 1rem 2rem; /* Add some padding for header content */
 }
 
@@ -65,5 +65,5 @@ section.explore-population {
 footer {
   text-align: center; /* Center the footer content */
   padding: 1rem; /* Add some padding for footer content */
-  background-color: #f8f9fa; /* Light background for footer */
+  background-color: #add4fa; /* Light background for footer */
 }
