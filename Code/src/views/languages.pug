@@ -1,0 +1,18 @@
+extends layout.pug
+block appContent
+title Languages
+  h1 All languages 
+  table(border=1)
+    thead
+      tr
+        th Country Code
+        th Language
+        th Is Official
+        th Percentage
+    tbody
+      for countrylanguage in data
+        tr
+          td #{language.countrycode}
+          td #{language.language}
+          td #{language.isOfficial}
+          td #{language.percentage}

@@ -4,8 +4,8 @@ body {
   font-family: Arial, sans-serif; /* Set a base font family */
   margin: 1; /* Remove default margin from body */
   padding: 0; /* Remove default padding from body */
-  color: #1a1717; /* Set link color */
-  background-color: #b5a3ef;
+  color: #c3765c; /* Set link color */
+  background-color: #c4e7e7;
 }
 
 h1, h2, h3, h4 {
@@ -14,7 +14,7 @@ h1, h2, h3, h4 {
 
 a {
   text-decoration: none; /* Remove underline from links */
-  color: #9292e4; /* Set link color */
+  color: #c3765c; /* Set link color */
 }
 
 a:hover {
@@ -23,7 +23,7 @@ a:hover {
 
 /* Header Styles */
 header {
-  background-color: #885ab7; /* Light background for header */
+  background-color: #2466d8; /* Light background for header */
   padding: 1rem 2rem; /* Add some padding for header content */
 }
 
@@ -37,7 +37,7 @@ nav {
   display: grid; /* Enable grid layout */
   text-align: center; /* Center content horizontally */
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Define columns */
-  background-color: #3b197d; /* Light background for navigation */
+  background-color: #e5f5f5; /* Light background for navigation */
   padding: 1rem; /* Add some padding for navigation links */
 }
 
@@ -54,7 +54,7 @@ nav a {
 }
 
 img {
-  width: 60%; /* Set a width for the image */
+  width: 80%; /* Set a width for the image */
 }
 
 /* About Section Styles */
@@ -66,5 +66,5 @@ section.explore-population {
 footer {
   text-align: center; /* Center the footer content */
   padding: 1rem; /* Add some padding for footer content */
-  background-color: #add4fa; /* Light background for footer */
+  background-color: #e5f5f5; /* Light background for footer */
 }
