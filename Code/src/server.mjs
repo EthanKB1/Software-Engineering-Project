@@ -64,7 +64,7 @@ app.get("/api/allCities", async (req, res) => {
 });
 
 //All Countries
-app.get("allCountries", async (req, res) => {
+app.get("/allCountries", async (req, res) => {
     const [rows, fields] = await db.getCountries();
     return res.render("countries", { rows, fields });
 });
@@ -81,10 +81,10 @@ app.post("/allCountries/:id", async (req, res) => {
     const sql = `
     UPDATE country
     SET Name = '${name}'
-    WHERE ID = '${countryCode}';
+    WHERE Code = '${countryCode}'; // Changed ID to Code
   `;
     await conn.execute(sql);
-    return res.redirect(`/countries/${countryCode}`);
+    return res.redirect(`/countries/${countryCode}`); // Changed countries to countries
 });
 
 //All countryLang

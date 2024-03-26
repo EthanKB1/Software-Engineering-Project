@@ -1,0 +1,40 @@
+extends layout.pug
+block appContent
+  title Countries
+  h2 All countries 
+  table(border=1)
+    thead
+      tr
+        th Code
+        th Name
+        th Continent
+        th Region
+        th Surface Area 
+        th Independance Year 
+        th Population 
+        th Life Expectancy 
+        th GNP 
+        th Old GNP 
+        th Local Name 
+        th Government Form 
+        th Head of State 
+        th Capital
+        th Code 2
+    tbody
+      each row, i in rows 
+        tr
+          td #{row.code}
+          td #{row.name}
+          td #{row.continent}
+          td #{row.region}
+          td #{row.surfaceArea}
+          td #{row.indepYear}
+          td #{row.population} 
+          td #{row.lifeExpectancy} 
+          td #{row.GNP} 
+          td #{row.GNPOld} 
+          td #{row.localName} 
+          td #{row.governmentForm}
+          td #{row.headOfState}
+          td #{row.capital}
+          td #{row.code2}

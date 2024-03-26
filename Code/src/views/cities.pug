@@ -2,11 +2,12 @@ extends layout.pug
 block appContent
   title Cities 
   h2 All Cities
-  table
+  table(border=1)
     thead
       th ID
-      th.text-center Country
-      th City
+      th.text-center Country Code
+      th Name
+      th District 
       th Population
     tbody
       each row, i in rows
@@ -15,5 +16,6 @@ block appContent
             a(href=`/cities/${i + 1}`) #{i + 1}
           td.fit #{row.CountryCode}
           td #{row.Name}
+          td #{row.District}
           - const population = new Intl.NumberFormat().format(row.Population);
           td.fit.number #{population}

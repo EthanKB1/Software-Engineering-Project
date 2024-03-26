@@ -86,19 +86,31 @@ export default class DatabaseService {
 
     /* Get a list of countries */
     async getCountries() {
-        const sql = `SELECT * FROM country`;
-        const [rows, fields] = await this.conn.execute(sql);
-        const countries = rows.map(c => new Country(c.code, c.name, c.continent, c.country, c.region, c.surfaceArea, c.indepYear, c.population, c.lifeExpectancy, c.GNP, c.GNPOId, c.localName, c.governmentForm, c.headOfState, c.capital, c.code2));
-        return countries;
+        try {
+            // Fetch countries from database
+            const sql = `SELECT * FROM country`;
+            const [rows, fields] = await this.conn.execute(sql);
+            const countries = rows.map(c => new Country(c.code, c.name, c.continent, c.country, c.region, c.surfaceArea, c.indepYear, c.population, c.lifeExpectancy, c.GNP, c.GNPOId, c.localName, c.governmentForm, c.headOfState, c.capital, c.code2));
+            return countries;
+        } catch (err) {
+            // Handle error...
+            console.error(err);
+            return undefined;
+        }
     }
 
     /* Get a list of country languages */
     async getLanguages() {
-        const sql = `SELECT * FROM countrylanguage`;
-        const [rows, fields] = await this.conn.execute(sql);
-        const languages = rows.map(c => new CountryLanguage(c.countrycode, c.language, c.isOfficial, c.percentage));
-        return languages ;
+        try {
+            // Fetch languages from database
+            const sql = `SELECT * FROM countrylanguage`;
+            const [rows, fields] = await this.conn.execute(sql);
+            const languages = rows.map(c => new CountryLanguage(c.countrycode, c.language, c.isOfficial, c.percentage));
+            return languages;
+        } catch (err) {
+            // Handle error...
+            console.error(err);
+            return undefined;
+        }
     }
-
-
 }

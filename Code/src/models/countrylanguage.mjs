@@ -4,10 +4,10 @@ export default class CountryLanguage {
     isOfficial;
     percentage;
 
-    constructor(countrycode, language, isofficial, percentage) {
-    this.countrycode = countrycode;
+    constructor(countryCode, language, isOfficial, percentage) {
+    this.countrycode = countryCode;
     this.language = language;
-    this.isOfficial = isofficial;
+    this.isOfficial = isOfficial;
     this.percentage = percentage;
 
     }
