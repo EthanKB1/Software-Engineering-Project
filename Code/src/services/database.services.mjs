@@ -96,8 +96,9 @@ export default class DatabaseService {
     async getLanguages() {
         const sql = `SELECT * FROM countrylanguage`;
         const [rows, fields] = await this.conn.execute(sql);
-        const languages = rows.map(c => new Languages(c.countrycode, c.language, c.isOfficial, c.percentage));
+        const languages = rows.map(c => new CountryLanguage(c.countrycode, c.language, c.isOfficial, c.percentage));
         return languages ;
     }
+
 
 }

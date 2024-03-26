@@ -1,7 +1,7 @@
 extends layout.pug
 block appContent
-title Languages
-  h1 All languages 
+  title Languages
+  h2 All languages 
   table(border=1)
     thead
       tr
@@ -10,9 +10,10 @@ title Languages
         th Is Official
         th Percentage
     tbody
-      for countrylanguage in data
+      each row, i in rows 
         tr
-          td #{language.countrycode}
-          td #{language.language}
-          td #{language.isOfficial}
-          td #{language.percentage}
+          td #{row.CountryCode}
+          td #{row.Language}
+          td #{row.IsOfficial}
+          td #{row.Percentage}
+
