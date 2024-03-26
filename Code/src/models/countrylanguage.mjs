@@ -1,5 +1,5 @@
 export default class CountryLanguage {
-    countrycode;
+    countryCode;
     language;
     isOfficial;
     percentage;
