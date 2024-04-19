@@ -1,0 +1,80 @@
+extends layout.pug
+
+block appContent
+  title "Population Form"
+
+  // Include jQuery UI for autocomplete functionality
+  script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
+
+  // Form markup
+  form(id="populationForm")
+    label(for="continent") Continent:
+    input(type="text", id="continent", name="continent")
+
+    label(for="region") Region:
+    input(type="text", id="region", name="region")
+
+    label(for="country") Country:
+    input(type="text", id="country", name="country")
+
+    button(type="button", id="displayBtn") Display
+
+  // Script for autocomplete functionality
+  script.
+    $(function() {
+      // Define autocomplete options
+      var autocompleteOptions = {
+        source: function(request, response) {
+          // Make an AJAX request to fetch autocomplete suggestions
+          $.ajax({
+            url: "/autocomplete",
+            dataType: "json",
+            data: {
+              term: request.term,
+              field: $(this.element).attr("name") // Pass the name attribute to identify the field
+            },
+            success: function(data) {
+              response(data);
+            }
+          });
+        },
+        minLength: 2 // Minimum characters to trigger autocomplete
+      };
+
+      // Initialize autocomplete for continent, region, and country fields
+      $("#continent, #region, #country").autocomplete(autocompleteOptions);
+    });
+
+  // Script to handle form submission and display button click
+  script.
+    $(function() {
+      $("#populationForm").submit(function(event) {
+        // Prevent default form submission
+        event.preventDefault();
+
+        // Get form data
+        var formData = {
+          continent: $("#continent").val(),
+          region: $("#region").val(),
+          country: $("#country").val()
+        };
+
+        // Make an AJAX request to handle form submission
+        $.ajax({
+          type: "POST",
+          url: "/displayPopulation",
+          contentType: "application/json",
+          data: JSON.stringify(formData),
+          success: function(response) {
+            // Display population data as per your requirement
+            console.log(response);
+          }
+        });
+      });
+
+      // Handle display button click
+      $("#displayBtn").click(function() {
+        // Trigger form submission when display button is clicked
+        $("#populationForm").submit();
+      });
+    });

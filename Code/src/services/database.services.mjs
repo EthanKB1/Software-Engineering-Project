@@ -138,7 +138,18 @@ export default class DatabaseService {
             return undefined;
         }
     }
+
+async getPopulation() {
+    try {
+        const data = await this.conn.execute("SELECT Continent, SUM(Population) FROM country WHERE Continent='Europe' group by Continent;");
+        return data;
+    } catch (err) {
+        console.error(err);
+        return undefined;
+    }
 }
+}
+
 
 
 
