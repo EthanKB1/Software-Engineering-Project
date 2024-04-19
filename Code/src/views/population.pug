@@ -8,18 +8,34 @@ block appContent
 
   // Form markup
   form(id="populationForm")
-    label(for="continent") Continent:
-    input(type="text", id="continent", name="continent")
+    div
+      label(for="continent") Continent:
+      select(id="continent", name="continent")
+        option(value="Africa") Africa
+        option(value="Asia") Asia
+        option(value="Europe") Europe
+        option(value="North America") North America 
+        option(value="Oceania") Oceania
+        option(value="Antartica") Antartica 
+        option(value="South America") South America
+        // Add more options for continents as needed
 
-    label(for="region") Region:
-    input(type="text", id="region", name="region")
+    div
+      label(for="region") Region:
+      select(id="region", name="region")
+        // Options for regions will be populated dynamically based on the selected continent
 
-    label(for="country") Country:
-    input(type="text", id="country", name="country")
+    div
+      label(for="country") Country:
+      select(id="country", name="country")
+        // Options for countries will be populated dynamically based on the selected region
 
     button(type="button", id="displayBtn") Display
 
-  // Script for autocomplete functionality
+  // Population result table
+  div(id="populationResult")
+
+  // Script for autocomplete functionality and form submission
   script.
     $(function() {
       // Define autocomplete options
@@ -43,11 +59,8 @@ block appContent
 
       // Initialize autocomplete for continent, region, and country fields
       $("#continent, #region, #country").autocomplete(autocompleteOptions);
-    });
 
-  // Script to handle form submission and display button click
-  script.
-    $(function() {
+      // Handle form submission
       $("#populationForm").submit(function(event) {
         // Prevent default form submission
         event.preventDefault();
@@ -66,8 +79,13 @@ block appContent
           contentType: "application/json",
           data: JSON.stringify(formData),
           success: function(response) {
-            // Display population data as per your requirement
-            console.log(response);
+            // Display population data in a table
+            var tableHtml = "<table><thead><tr><th>Continent</th><th>Region</th><th>Country</th><th>Population</th></tr></thead><tbody>";
+            response.forEach(function(item) {
+              tableHtml += "<tr><td>" + item.continent + "</td><td>" + item.region + "</td><td>" + item.country + "</td><td>" + item.population + "</td></tr>";
+            });
+            tableHtml += "</tbody></table>";
+            $("#populationResult").html(tableHtml);
           }
         });
       });
