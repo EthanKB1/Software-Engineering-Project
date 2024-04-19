@@ -113,22 +113,9 @@ app.post("/allLanguages/:id", async (req, res) =>  {
     return res.redirect(`/languages/${Language}`);
 });
 
-//route to calculate population based on selected parameters
-
-// Route to calculate population based on selected parameters
-app.post("/calculatePopulation", async (req, res) => {
-    try {
-        const { region, continent, country } = req.body;
-
-        // Query the database to get population data based on selected parameters
-        const populationData = await db.getPopulation(region, continent, country);
-
-        // Send population data as response
-        res.status(200).json(populationData);
-    } catch (error) {
-        console.error("Error calculating population:", error);
-        res.status(500).json({ error: "An error occurred while calculating population." });
-    }
+app.get("/allPopulation", async (req, res) => {
+    const [rows, fields] = await db.getPopulation();
+    return res.render("population", { rows, fields });
 });
 
 app.listen(port, () => {
