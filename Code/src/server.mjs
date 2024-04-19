@@ -67,7 +67,9 @@ app.get("/api/allCities", async (req, res) => {
 app.get("/allCountries", async (req, res) => {
     const [rows, fields] = await db.getCountries();
     return res.render("countries", { rows, fields });
+    //return res.render("countries");
 });
+
 
 app.get("/allCountries/:id", async (req, res) => {
     const countryCode = req.params.id;

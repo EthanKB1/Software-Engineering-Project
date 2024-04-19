@@ -14,8 +14,8 @@ export default class DatabaseService {
     static async connect() {
         const conn = await mysql.createConnection({
             host: process.env.DATABASE_HOST || "localhost",
-            user: "user",
-            password: "password",
+            user: "root",
+            password: "",
             database: "world",
         });
 
@@ -84,7 +84,7 @@ export default class DatabaseService {
         return res;
     }
 
-    /* Get a list of countries */
+    /* Get a list of countries 
     async getCountries() {
         try {
             // Fetch countries from database
@@ -92,6 +92,19 @@ export default class DatabaseService {
             const [rows, fields] = await this.conn.execute(sql);
             const countries = rows.map(c => new Country(c.code, c.name, c.continent, c.country, c.region, c.surfaceArea, c.indepYear, c.population, c.lifeExpectancy, c.GNP, c.GNPOId, c.localName, c.governmentForm, c.headOfState, c.capital, c.code2));
             return countries;
+        } catch (err) {
+            // Handle error...
+            console.error(err);
+            return undefined;
+        }
+    }*/
+
+    /* Get a list of countries */
+    async getCountries() {
+        try {
+            // Fetch cities from database
+            const data = await this.conn.execute("SELECT * FROM `country`");
+            return data;
         } catch (err) {
             // Handle error...
             console.error(err);

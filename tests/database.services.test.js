@@ -18,5 +18,5 @@ describe('Database Connectivity', () => {
     expect(db.conn).toBeDefined();
   });
 
-  // Add more test cases to verify database operations
+  
 });
