@@ -92,7 +92,7 @@ app.post("/allCountries/:id", async (req, res) => {
 //All countryLang
 app.get("/allLanguages", async (req, res) => {
     const [rows, fields] = await db.getLanguages();
-    return res.render("languages", {rows, fields});
+    return res.render("languages", { rows, fields });
 });
 
 app.get("/allLanguages/:id", async (req, res) => {

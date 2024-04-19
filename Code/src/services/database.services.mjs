@@ -112,7 +112,7 @@ export default class DatabaseService {
         }
     }
 
-    /* Get a list of country languages */
+    /* Get a list of country languages 
     async getLanguages() {
         try {
             // Fetch languages from database
@@ -120,6 +120,18 @@ export default class DatabaseService {
             const [rows, fields] = await this.conn.execute(sql);
             const languages = rows.map(c => new CountryLanguage(c.countrycode, c.language, c.isOfficial, c.percentage));
             return languages;
+        } catch (err) {
+            // Handle error...
+            console.error(err);
+            return undefined;
+        }
+    } */
+
+    async getLanguages() {
+        try {
+            // Fetch cities from database
+            const data = await this.conn.execute("SELECT * FROM `countrylanguage`");
+            return data;
         } catch (err) {
             // Handle error...
             console.error(err);
