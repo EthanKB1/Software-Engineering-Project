@@ -138,4 +138,24 @@ export default class DatabaseService {
             return undefined;
         }
     }
+
+    /* Calculate population based on selected parameters */
+    async getPopulation(region, continent, country) {
+        let population = 0;
+        try {
+            // Query the database to get population data based on selected parameters
+            const [rows, fields] = await this.conn.execute(`
+                SELECT SUM(city.Population) AS Population
+                FROM city
+                INNER JOIN country ON country.Code = city.CountryCode
+                WHERE country.Region = ? AND country.Continent = ? AND country.Name = ?
+            `, [region, continent, country]);
+            
+            // Extract population from result
+            population = rows[0].Population;
+        } catch (error) {
+            console.error("Error calculating population:", error);
+        }
+        return population;
+    }
 }
