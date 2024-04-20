@@ -113,10 +113,64 @@ app.post("/allLanguages/:id", async (req, res) =>  {
     return res.redirect(`/languages/${Language}`);
 });
 
-app.get("/allPopulation", async (req, res) => {
+/*app.get("/allPopulation", async (req, res) => {
     const [rows, fields] = await db.getPopulation();
     return res.render("population", { rows, fields });
+});*/
+
+// Route to get population data for all countries
+app.get("/allPopulation", async (req, res) => {
+    try {
+        // Fetch population data for all countries from the database service
+        const populationData = await db.getAllPopulation();
+
+        // Render the population page with population data
+        res.render("population", { populationData });
+    } catch (error) {
+        console.error("Error fetching population data:", error);
+        res.status(500).json({ error: "An error occurred while fetching population data." });
+    }
 });
+
+// Route to fetch continents
+app.get("/continents", async (req, res) => {
+    try {
+        // Fetch continent data from the database
+        const continents = await db.getContinents();
+        // Render the populationByContinent template with the continent data
+        res.render("populationByContinent", { continents });
+    } catch (error) {
+        console.error("Error fetching continent data:", error);
+        res.status(500).json({ error: "An error occurred while fetching continent data." });
+    }
+});
+
+
+
+// Handle form submission for Population by Continent
+app.post("/continent", async (req, res) => {
+    try {
+        const { continent } = req.body;
+        if (!continent) {
+            throw new Error("Continent parameter is missing.");
+        }
+        // Query the database to calculate population by continent
+        const populationData = await db.calculatePopulationByContinent(continent);
+        if (!populationData || populationData.length === 0) {
+            throw new Error("No population data available for the selected continent.");
+        }
+        // Render the population data
+        res.render("populationByContinent", { populationData }); // Pass populationData to the template
+    } catch (error) {
+        console.error("Error handling population by continent:", error);
+        res.status(500).render("populationByContinent", { populationData: [], error: error.message });
+    }
+});
+
+
+
+
+
 
 app.listen(port, () => {
     console.log('Server ready!');

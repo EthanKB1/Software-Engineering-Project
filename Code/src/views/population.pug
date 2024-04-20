@@ -1,98 +1,19 @@
 extends layout.pug
 
 block appContent
-  title "Population Form"
+  title Population
 
-  // Include jQuery UI for autocomplete functionality
-  script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
+  h2 Population of All Countries
 
-  // Form markup
-  form(id="populationForm")
-    div
-      label(for="continent") Continent:
-      select(id="continent", name="continent")
-        option(value="Africa") Africa
-        option(value="Asia") Asia
-        option(value="Europe") Europe
-        option(value="North America") North America 
-        option(value="Oceania") Oceania
-        option(value="Antartica") Antartica 
-        option(value="South America") South America
-        // Add more options for continents as needed
-
-    div
-      label(for="region") Region:
-      select(id="region", name="region")
-        // Options for regions will be populated dynamically based on the selected continent
-
-    div
-      label(for="country") Country:
-      select(id="country", name="country")
-        // Options for countries will be populated dynamically based on the selected region
-
-    button(type="button", id="displayBtn") Display
-
-  // Population result table
-  div(id="populationResult")
-
-  // Script for autocomplete functionality and form submission
-  script.
-    $(function() {
-      // Define autocomplete options
-      var autocompleteOptions = {
-        source: function(request, response) {
-          // Make an AJAX request to fetch autocomplete suggestions
-          $.ajax({
-            url: "/autocomplete",
-            dataType: "json",
-            data: {
-              term: request.term,
-              field: $(this.element).attr("name") // Pass the name attribute to identify the field
-            },
-            success: function(data) {
-              response(data);
-            }
-          });
-        },
-        minLength: 2 // Minimum characters to trigger autocomplete
-      };
-
-      // Initialize autocomplete for continent, region, and country fields
-      $("#continent, #region, #country").autocomplete(autocompleteOptions);
-
-      // Handle form submission
-      $("#populationForm").submit(function(event) {
-        // Prevent default form submission
-        event.preventDefault();
-
-        // Get form data
-        var formData = {
-          continent: $("#continent").val(),
-          region: $("#region").val(),
-          country: $("#country").val()
-        };
-
-        // Make an AJAX request to handle form submission
-        $.ajax({
-          type: "POST",
-          url: "/displayPopulation",
-          contentType: "application/json",
-          data: JSON.stringify(formData),
-          success: function(response) {
-            // Display population data in a table
-            var tableHtml = "<table><thead><tr><th>Continent</th><th>Region</th><th>Country</th><th>Population</th></tr></thead><tbody>";
-            response.forEach(function(item) {
-              tableHtml += "<tr><td>" + item.continent + "</td><td>" + item.region + "</td><td>" + item.country + "</td><td>" + item.population + "</td></tr>";
-            });
-            tableHtml += "</tbody></table>";
-            $("#populationResult").html(tableHtml);
-          }
-        });
-      });
-
-      // Handle display button click
-      $("#displayBtn").click(function() {
-        // Trigger form submission when display button is clicked
-        $("#populationForm").submit();
-      });
-    });
+  table(border="1")
+    thead
+      tr
+        th Country
+        th Continent
+        th Population
+    tbody
+      each country in populationData
+        tr
+          td= country.Country
+          td= country.Continent
+          td= country.Population

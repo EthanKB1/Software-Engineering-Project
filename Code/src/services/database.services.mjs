@@ -139,15 +139,70 @@ export default class DatabaseService {
         }
     }
 
-async getPopulation() {
+    // In database.services.mjs
+
+async getAllPopulation() {
     try {
-        const data = await this.conn.execute("SELECT Continent, SUM(Population) FROM country WHERE Continent='Europe' group by Continent;");
-        return data;
-    } catch (err) {
-        console.error(err);
-        return undefined;
+        // Fetch population data for all countries from the database
+        const sql = `SELECT country.Name AS Country, country.Population, country.Continent
+                     FROM country`;
+        const [rows, fields] = await this.conn.execute(sql);
+        return rows;
+    } catch (error) {
+        console.error("Error fetching population data:", error);
+        throw error;
     }
 }
+
+async calculatePopulationByContinent(continent) {
+    try {
+        // Validate the continent parameter
+        if (!continent) {
+            throw new Error("Continent parameter is missing.");
+        }
+        // Query the database to calculate population by continent
+        const sql = `
+            SELECT continent AS name, SUM(population) AS population
+            FROM country
+            WHERE continent = ?
+            GROUP BY continent;
+        `;
+        const [rows, fields] = await this.conn.execute(sql, [continent]);
+        return rows; // Ensure that the result is an array of objects with properties 'name' and 'population'
+    } catch (error) {
+        console.error("Error calculating population by continent:", error);
+        throw error; // Propagate the error to the caller
+    }
+}
+
+
+async getContinents() {
+    try {
+        // Fetch continents from the database
+        const sql = `SELECT DISTINCT Continent FROM country`;
+        const [rows, fields] = await this.conn.execute(sql);
+        return rows.map(row => row.Continent);
+    } catch (error) {
+        console.error("Error fetching continents:", error);
+        throw error;
+    }
+}
+
+async getContinents() {
+    try {
+        // Fetch continents from the database
+        const sql = `SELECT DISTINCT Continent FROM country`;
+        const [rows, fields] = await this.conn.execute(sql);
+        return rows.map(row => row.Continent);
+    } catch (error) {
+        console.error("Error fetching continents:", error);
+        throw error;
+    }
+}
+
+
+  
+
 }
 
 
