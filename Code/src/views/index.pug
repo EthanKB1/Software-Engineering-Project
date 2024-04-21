@@ -1,26 +1,19 @@
 extends layout.pug
 block appContent 
     title WorldPop  
-    div.image-container 
+    div.webImage-container 
         img(src="web.jpg", alt="World Map")
     body
-        h3 About WorldPop
-        p A paragraph describing WorldPop's purpose and mission. 
-        p ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        p ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        p ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        p ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        
-        section.explore-population
-        h3 Explore Population Data
-        ul
-            li 
-                a(href="/continents") Population by Continents
-            li 
-                a(href="/regions") Population by Regions
-            li 
-                a(href="/districts") Population by Districts
-    
-//- all this is from the exercise and can be used as a template for when developement actually starts
+        .intro-container
+            h2 About WorldPop
+            p Welcome to WorldPop, your one-stop shop for exploring population data across the globe! Our mission is to empower you with comprehensive and up-to-date information about countries, cities, continents, and regions. 
+            p Dive into a vast collection of information, including population figures, languages spoken,  capitals, surface areas, and more. Whether you're a researcher, student, or simply curious about our world, WorldPop equips you with the knowledge to understand population trends, demographics, and fascinating details about various locations.
+            h4 Exploring Our Data:
+            ul
+                li Population information for countries, cities, continents and regions.
+                li Details about official languages spoken, offering insights into cultural diversity.
+                li Geographical information like surface areas and capital cities.
+                li Additional data covering economic indicators, life expectancy, and government structures.
+            p Start your exploration today and embark on a global population discovery journey!
 
-//- hj
+    

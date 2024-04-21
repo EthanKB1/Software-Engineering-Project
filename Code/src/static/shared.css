@@ -45,9 +45,16 @@ thead th {
     position: absolute; /* Make it positioned relative to viewport */
     top: 10px; /* Adjust top position from the top */
     right: 10px; /* Adjust right position from the right */
-    padding: 5px 10px; /* Add some padding */
-    background-color: #e5f5f5; /* Optional background color */
+    display: flex; /* Make container a flexbox */
+    align-items: center; /* Align content vertically */
     border-radius: 5px; /* Optional rounded corners */
+    padding: 6px 12px; /* Add some padding */
+    background-color: #e5f5f5; /* Optional background color */
+  }
+  
+  .top-right-container img {
+    margin-right: auto; /* Add margin for spacing */
+    width: 30%;
   }
   
   .top-right-container a {
@@ -57,4 +64,11 @@ thead th {
   
   .top-right-container a:hover {
     background-color: #ddd; /* Optional background color on hover */
+  }
+
+  .intro-container {
+    align-items: center; /* Align content vertically */
+    border-radius: 5px; /* Optional rounded corners */
+    padding: 20px 40px; /* Add some padding */
+    background-color: #d1f0f0; /* Optional background color */
   }

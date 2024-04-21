@@ -1,7 +1,7 @@
 html,
 /* Basic Styles */
 body {
-  font-family: Arial, sans-serif; /* Set a base font family */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   margin: 1; /* Remove default margin from body */
   padding: 0; /* Remove default padding from body */
   color: #c3765c; /* Set link color */
@@ -48,19 +48,12 @@ nav a {
 
 
 /* Image Styles */
-.image-container {
+.webImage-container {
   text-align: center; /* Center the image horizontally */
   margin: 2rem auto; /* Add margin around the image container */
-}
-
-img {
   width: 80%; /* Set a width for the image */
 }
 
-/* About Section Styles */
-section.explore-population {
-  margin-top: 2rem; /* Add margin above the explore section */
-}
 
 /* Footer Styles */
 footer {
