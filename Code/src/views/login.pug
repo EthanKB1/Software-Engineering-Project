@@ -1,9 +1,16 @@
 extends layout
-block content
- h1 Login here
- form(action='/authenticate' method='POST')
- label(for='email') Enter your email:
- input('name'='email')
- label(for='email') Enter your password:
- input('name'='password')
- input(type='submit' value='Submit')
+block appContent
+    title Login
+    link(rel="stylesheet", href="login.css")
+    .container
+        h1 Login To World Pop
+        form(action="/authenticate" method="POST")
+            .form-group
+                label(for="email") Enter Your Email:
+                input(name="email", required)
+            .form-group
+                label(for="password") Enter Your Password:
+                input(name="password", required)
+            button(type="submit") Login
+
+

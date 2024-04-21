@@ -188,18 +188,6 @@ async getContinents() {
     }
 }
 
-async getContinents() {
-    try {
-        // Fetch continents from the database
-        const sql = `SELECT DISTINCT Continent FROM country`;
-        const [rows, fields] = await this.conn.execute(sql);
-        return rows.map(row => row.Continent);
-    } catch (error) {
-        console.error("Error fetching continents:", error);
-        throw error;
-    }
-}
-
 
   
 
