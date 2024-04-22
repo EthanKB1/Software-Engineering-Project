@@ -7,7 +7,7 @@ const app = express();
 const PORT = 3000; // Use the provided port
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true })); // Add this line to parse form data
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
@@ -66,4 +66,4 @@ app.post('/login', async function (req, res) {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-}); 
+});
