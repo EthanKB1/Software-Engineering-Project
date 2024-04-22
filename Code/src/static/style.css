@@ -54,6 +54,11 @@ nav a {
   width: 80%; /* Set a width for the image */
 }
 
+/* About Section Styles */
+section.explore-population {
+  margin-top: 2rem; /* Add margin above the explore section */
+  padding: 10px 20px;
+}
 
 /* Footer Styles */
 footer {

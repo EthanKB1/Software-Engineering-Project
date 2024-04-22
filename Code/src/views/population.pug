@@ -8,12 +8,12 @@ block appContent
   table(border="1")
     thead
       tr
-        th Country
         th Continent
+        th Country
         th Population
     tbody
       each country in populationData
         tr
-          td= country.Country
           td= country.Continent
+          td= country.Country
           td= country.Population
