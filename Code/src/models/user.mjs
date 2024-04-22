@@ -1,16 +1,16 @@
-const mysql = require('mysql2/promise');
+import mysql from 'mysql2/promise'; // Import mysql2 library
 
-// creating a function to connect to the database
+// Function to connect to the database
 async function connectToDatabase() {
   try {
     const connection = await mysql.createConnection({
       host: 'localhost',
-      user: 'root', 
-      password: '', 
+      user: 'root',
+      password: '',
       database: 'world'
     });
 
-    // returns the connection
+    // Return the connection
     return connection;
   } catch (error) {
     console.error('Error connecting to the database:', error);
@@ -18,17 +18,38 @@ async function connectToDatabase() {
   }
 }
 
-// Example usage:
-async function main() {
+// Function to register a new user
+async function registerUser(email, password) {
   try {
-    const db = await connectToDatabase();
+    // Connect to the database
+    const connection = await connectToDatabase();
 
-    // Performs database operations
+    // Insert the new user into the database
+    const [result] = await connection.execute('INSERT INTO users (email, password) VALUES (?, ?)', [email, password]);
+
+    // Return the result of the insert operation
+    return result;
   } catch (error) {
-    console.error('An error occurred:', error);
+    console.error('Error registering user:', error);
+    throw error;
   }
 }
 
-main();
+// Function to authenticate a user
+async function authenticateUser(email, password) {
+  try {
+    // Connect to the database
+    const connection = await connectToDatabase();
 
-//not finished just yet
+    // Query the database for the user with the provided email and password
+    const [rows] = await connection.execute('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
+
+    // Return the user if found, otherwise return null
+    return rows.length > 0 ? rows[0] : null;
+  } catch (error) {
+    console.error('Error authenticating user:', error);
+    throw error;
+  }
+}
+
+export { registerUser, authenticateUser };
