@@ -1,17 +1,15 @@
-// login.pug
 extends layout
 
-block content
-  title Login
-  link(rel="stylesheet", href="login.css")
-  .container
-    h1 Login To World Pop
-    form(action="/login" method="POST")
-      .form-group
-        label(for="email") Enter Your Email:
-        input(type="text" name="email" required)
-      .form-group
-        label(for="password") Enter Your Password:
-        input(type="password" name="password" required)
-      button(type="submit") Login
-    a(href="/register") Register Here
+block appContent
+    title Login
+    link(rel="stylesheet", href="login.css")
+    .container
+        h1 Login To World Pop
+        form(action="/authenticate", method="POST")
+            .form-group
+                label(for="email") Enter Your Email:
+                input(type="text", name="email", required)
+            .form-group
+                label(for="password") Enter Your Password:
+                input(type="password", name="password", required)
+            button(type="submit") Login
