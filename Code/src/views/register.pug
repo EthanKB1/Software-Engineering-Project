@@ -1,11 +1,10 @@
-// register.pug
 extends layout
 
 block content
   h1 Register here
-  form(action='/register' method='POST')
+  form(action='/set-password' method='POST')
     label(for='email') Enter your email:
-    input(type='text' name='email' required)
+    input(name='email')
     label(for='password') Enter your password:
-    input(type='password' name='password' required)
+    input(name='password')
     input(type='submit' value='Submit')
