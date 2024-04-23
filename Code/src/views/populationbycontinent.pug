@@ -4,17 +4,20 @@ block appContent
   title Population by Continent
 
   // Form markup
-  form(id="continentForm")
+  form(id="continentForm", action="/continent", method="post")
     div
       label(for="continent") Select Continent:
       select(id="continent", name="continent")
         option(value="") -- Select Continent --
-        each continent in continents
-          option(value=continent)= continent
+        //- Check if continents is defined and not empty before iterating
+        if continents && continents.length > 0
+          //- Use each loop to iterate over continents
+          each continent in continents
+            option(value=continent)= continent
 
     button(type="submit") Display Population
 
-  // Display population data in a table
+  // Display population data in a table if available
   if populationData && populationData.length > 0
     table
       thead
@@ -22,6 +25,7 @@ block appContent
           th Continent
           th Population
       tbody
+        //- Use each loop to iterate over populationData
         each data in populationData
           tr
             td= data.name

@@ -188,6 +188,81 @@ async getContinents() {
     }
 }
 
+async getRegions() {
+    try {
+        const sql = `
+            SELECT DISTINCT region
+            FROM country;
+        `;
+        const [rows, fields] = await this.conn.execute(sql);
+        return rows.map(row => row.region);
+    } catch (error) {
+        console.error("Error fetching regions:", error);
+        throw error;
+    }
+}
+
+async calculatePopulationByRegion(region) {
+    try {
+        // Validate the region parameter
+        if (!region) {
+            throw new Error("Region parameter is missing.");
+        }
+        // Query the database to calculate population by region
+        const sql = `
+            SELECT region AS name, SUM(population) AS population
+            FROM country
+            WHERE region = ?
+            GROUP BY region;
+        `;
+        const [rows, fields] = await this.conn.execute(sql, [region]);
+        return rows; // Ensure that the result is an array of objects with properties 'name' and 'population'
+    } catch (error) {
+        console.error("Error calculating population by region:", error);
+        throw error;
+    }
+}
+
+
+// Define a method to fetch districts from the database
+async getDistricts() {
+    try {
+        // Query to fetch unique districts from the database
+        const sql = `
+            SELECT DISTINCT District
+            FROM city;
+        `;
+        const [rows, fields] = await this.conn.execute(sql);
+        // Extract districts from the result
+        const districts = rows.map(row => row.District);
+        return districts;
+    } catch (error) {
+        console.error("Error fetching districts:", error);
+        throw error;
+    }
+}
+
+// Define a method to calculate population by district
+async calculatePopulationByDistrict(district) {
+    try {
+        // Validate the district parameter
+        if (!district) {
+            throw new Error("District parameter is missing.");
+        }
+        // Query the database to calculate population by district
+        const sql = `
+            SELECT city.District AS name, SUM(city.population) AS population
+            FROM city
+            WHERE city.District = ?
+            GROUP BY city.District;
+        `;
+        const [rows, fields] = await this.conn.execute(sql, [district]);
+        return rows;
+    } catch (error) {
+        console.error("Error calculating population by district:", error);
+        throw error;
+    }
+}
 
   
 

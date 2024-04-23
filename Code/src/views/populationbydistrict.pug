@@ -1,0 +1,34 @@
+extends layout.pug
+
+block appContent
+  title Population by Districts
+
+  // Form markup
+  form(id="districtForm", action="/district", method="post")
+    div
+      label(for="district") Select District:
+      select(id="district", name="district")
+        option(value="") -- Select District --
+        //- Check if districts is defined and not empty before iterating
+        if districts && districts.length > 0
+          //- Use each loop to iterate over districts
+          each district in districts
+            option(value=district)= district
+
+    button(type="submit") Display Population
+
+  // Display population data in a table if available
+  if populationData && populationData.length > 0
+    table
+      thead
+        tr
+          th District
+          th Population
+      tbody
+        //- Use each loop to iterate over populationData
+        each data in populationData
+          tr
+            td= data.name
+            td= data.population
+  else
+    p No population data available.

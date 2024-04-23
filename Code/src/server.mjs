@@ -132,10 +132,10 @@ app.get("/allPopulation", async (req, res) => {
     }
 });
 
-// Route to fetch continents
-app.get("/continents", async (req, res) => {
+// Fetch and render populationByContinent view
+app.get("/populationByContinents", async (req, res) => {
     try {
-        // Fetch continent data from the database
+        // Fetch continents from the database
         const continents = await db.getContinents();
         // Render the populationByContinent template with the continent data
         res.render("populationByContinent", { continents });
@@ -146,26 +146,130 @@ app.get("/continents", async (req, res) => {
 });
 
 
-
 // Handle form submission for Population by Continent
 app.post("/continent", async (req, res) => {
     try {
+        // Extract the continent value from the request body
         const { continent } = req.body;
+
+        // Check if continent is provided
         if (!continent) {
             throw new Error("Continent parameter is missing.");
         }
+
         // Query the database to calculate population by continent
         const populationData = await db.calculatePopulationByContinent(continent);
+
+        // Fetch continents again from the database
+        const continents = await db.getContinents();
+
+        // Check if population data is available
         if (!populationData || populationData.length === 0) {
             throw new Error("No population data available for the selected continent.");
         }
-        // Render the population data
-        res.render("populationByContinent", { populationData }); // Pass populationData to the template
+
+        // Render the population data with continents data
+        res.render("populationByContinent", { populationData, continents });
     } catch (error) {
         console.error("Error handling population by continent:", error);
+        // If there's an error, render the template with an empty populationData array and error message
         res.status(500).render("populationByContinent", { populationData: [], error: error.message });
     }
 });
+
+
+// Fetch and render populationByRegions view
+app.get("/populationByRegions", async (req, res) => {
+    try {
+        // Fetch regions from the database
+        const regions = await db.getRegions();
+        // Render the populationByRegions template with the region data
+        res.render("populationByRegion", { regions });
+    } catch (error) {
+        console.error("Error fetching region data:", error);
+        res.status(500).json({ error: "An error occurred while fetching region data." });
+    }
+});
+
+// Handle form submission for Population by Regions
+app.post("/region", async (req, res) => {
+    try {
+        // Extract the region value from the request body
+        const { region } = req.body;
+
+        // Fetch regions from the database
+        const regions = await db.getRegions();
+
+        // Check if region is provided
+        if (!region) {
+            throw new Error("Region parameter is missing.");
+        }
+
+        // Query the database to calculate population by region
+        const populationData = await db.calculatePopulationByRegion(region);
+
+        // Check if population data is available
+        if (!populationData || populationData.length === 0) {
+            throw new Error("No population data available for the selected region.");
+        }
+
+        // Render the population data
+        res.render("populationByRegion", { regions, populationData });
+    } catch (error) {
+        console.error("Error handling population by region:", error);
+        // If there's an error, render the template with an empty populationData array and error message
+        res.status(500).render("populationByRegion", { regions: [], populationData: [], error: error.message });
+    }
+});
+
+
+// Fetch and render populationByDistrict view
+app.get("/populationByDistricts", async (req, res) => {
+    try {
+        // Fetch districts from the database
+        const districts = await db.getDistricts();
+        // Render the populationByDistrict template with the district data
+        res.render("populationByDistrict", { districts });
+    } catch (error) {
+        console.error("Error fetching district data:", error);
+        res.status(500).json({ error: "An error occurred while fetching district data." });
+    }
+});
+
+
+// Handle form submission for Population by District
+app.post("/district", async (req, res) => {
+    try {
+        // Extract the district value from the request body
+        const { district } = req.body;
+
+        // Check if district is provided
+        if (!district) {
+            throw new Error("District parameter is missing.");
+        }
+
+        // Query the database to calculate population by district
+        const populationData = await db.calculatePopulationByDistrict(district);
+
+        // Fetch districts from the database (to reload the drop-down menu)
+        const districts = await db.getDistricts();
+
+        // Check if population data is available
+        if (!populationData || populationData.length === 0) {
+            throw new Error("No population data available for the selected district.");
+        }
+
+        // Render the population data along with the districts data
+        res.render("populationByDistrict", { populationData, districts });
+    } catch (error) {
+        console.error("Error handling population by district:", error);
+        // If there's an error, render the template with an empty populationData array, districts, and error message
+        res.status(500).render("populationByDistrict", { populationData: [], districts: [], error: error.message });
+    }
+});
+
+
+
 
 
 
