@@ -1,5 +1,35 @@
-extends population.pug
+extends layout.pug
 
 block appContent
-  h2 Population by Region
-  p 
+  title Population by Regions
+
+  // Form markup
+  form(id="regionForm", action="/region", method="post")
+    div
+      label(for="region") Select Region:
+      select(id="region", name="region")
+        option(value="") -- Select Region --
+        //- Check if regions is defined and not empty before iterating
+        if regions && regions.length > 0
+          //- Use each loop to iterate over regions
+          each region in regions
+            option(value=region)= region
+
+    button(type="submit") Display Population
+
+  // Display population data in a table if available
+  if populationData && populationData.length > 0
+    table
+      thead
+        tr
+          th Region
+          th Population
+      tbody
+        //- Use each loop to iterate over populationData
+        each data in populationData
+          tr
+            td= data.name
+            td= data.population
+  else
+    p No population data available.
+
