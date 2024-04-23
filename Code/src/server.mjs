@@ -1,6 +1,7 @@
 import express from "express";
 import mysql from "mysql2/promise";
 import DatabaseService from "./services/database.services.mjs";
+import { User } from "./models/user.mjs";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -281,6 +282,32 @@ app.get("/register", (req, res) => {
 // Login
 app.get("/login", (req, res) => {
     res.render("login");
+});
+
+//authenticate test
+app.post('/authenticate', function (req, res) {
+    var params = req.body; // Declare params variable
+    var user = new User(params.email);
+    try {
+        user.getIdFromEmail().then(uId => {
+            if (uId) {
+                user.authenticate(params.password).then(match => {
+                    if (match) {
+                        res.redirect('/' + uId);
+                    }
+                    else {
+                        // TODO improve the user journey here
+                        res.send('invalid password');
+                    }
+                });
+            }
+            else {
+                res.send('invalid email');
+            }
+        });
+    } catch (err) {
+        console.error(`Error while comparing `, err.message);
+    }
 });
 
 // Account
