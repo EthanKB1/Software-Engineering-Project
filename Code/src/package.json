@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "datatables.net-dt": "^2.0.5",
     "express": "^4.19.2",
     "mysql2": "^3.9.2",
     "pug": "^3.0.2"
