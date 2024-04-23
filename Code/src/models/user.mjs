@@ -11,16 +11,17 @@ class User {
     this.email = email;
   }
 
-  // Get an existing user id from an email address, or return false if not found
+  // Checks to see if the submitted email address exists in the Users table
   async getIdFromEmail() {
     try {
-      // Use the method from db to fetch user ID by email
-      const user = await db.getUserByEmail(this.email);
-      // If user found, return the ID
-      if (user) {
-        return user.id;
+      var sql = "SELECT id FROM Users WHERE Users.email = ?";
+      const result = await db.query(sql, [this.email]);
+      // TODO LOTS OF ERROR CHECKS HERE..
+      if (JSON.stringify(result) != '[]') {
+        this.id = result[0].id;
+        return this.id;
       } else {
-        return false; // User not found
+        return false;
       }
     } catch (error) {
       console.error("Error getting user ID from email:", error);
