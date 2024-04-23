@@ -180,6 +180,28 @@ app.get("/login", (req, res) => {
     res.render("login");
 });
 
+//authenticate test
+// Define route for handling POST requests to /authenticate
+router.post('/authenticate', async (req, res) => {
+    const { email, password } = req.body; // Extract email and password from request body
+    const user = new User(email); // Create a new User object with the provided email
+  
+    try {
+      // Authenticate the user with the provided password
+      const isAuthenticated = await user.authenticate(password);
+  
+      if (isAuthenticated) {
+        // Redirect the user to the homepage after successful authentication
+        res.redirect('/');
+      } else {
+        res.status(401).json({ message: 'Authentication failed' });
+      }
+    } catch (error) {
+      console.error('Error authenticating user:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
 // Account
 app.get("/account", async (req, res) => {
     const { auth, userId } = req.session;
