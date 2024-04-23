@@ -181,31 +181,30 @@ app.get("/login", (req, res) => {
 });
 
 //authenticate test
-// Define route for handling POST requests to /authenticate
-
-const router = express.Router();
-
-router.post('/authenticate', async (req, res) => {
-    const { email, password } = req.body; // Extract email and password from request body
-    const user = new User(email); // Create a new User object with the provided email
-  
+app.post('/authenticate', function (req, res) {
+    params = req.body;
+    var user = new User(params.email);
     try {
-      // Authenticate the user with the provided password
-      const isAuthenticated = await user.authenticate(password);
-  
-      if (isAuthenticated) {
-        // Redirect the user to the homepage after successful authentication
-        res.redirect('/');
-      } else {
-        res.status(401).json({ message: 'Authentication failed' });
-      }
-    } catch (error) {
-      console.error('Error authenticating user:', error);
-      res.status(500).json({ error: 'Internal server error' });
+    user.getIdFromEmail().then(uId => {
+    if (uId) {
+    user.authenticate(params.password).then(match => {
+    if (match) {
+    res.redirect('/' + uId);
     }
-  });
-
-  export default router;
+    else {
+    // TODO improve the user journey here
+    res.send('invalid password');
+    }
+    });
+    }
+    else {
+    res.send('invalid email');
+    }
+    })
+    } catch (err) {
+    console.error(`Error while comparing `, err.message);
+    }
+   });
 
 // Account
 app.get("/account", async (req, res) => {
