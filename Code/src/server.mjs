@@ -1,8 +1,8 @@
 import express from "express";
 import mysql from "mysql2/promise";
 import DatabaseService from "./services/database.services.mjs";
+import { User } from "./models/user";
 
-const { User } = require("./models/user");
 const app = express();
 const port = process.env.PORT || 3000;
 
