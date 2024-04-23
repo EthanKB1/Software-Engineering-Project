@@ -182,6 +182,9 @@ app.get("/login", (req, res) => {
 
 //authenticate test
 // Define route for handling POST requests to /authenticate
+
+const router = express.Router();
+
 router.post('/authenticate', async (req, res) => {
     const { email, password } = req.body; // Extract email and password from request body
     const user = new User(email); // Create a new User object with the provided email
@@ -201,6 +204,8 @@ router.post('/authenticate', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
+
+  export default router;
 
 // Account
 app.get("/account", async (req, res) => {
