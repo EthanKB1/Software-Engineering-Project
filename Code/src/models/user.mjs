@@ -1,5 +1,5 @@
 // Get the functions in the db.js file to use
-const db = require('../services/database.services.mjs');
+import db from '../services/database.services.mjs';
 
 class User {
   // Id of the user
