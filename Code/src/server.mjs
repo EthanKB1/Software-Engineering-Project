@@ -271,9 +271,6 @@ app.post("/district", async (req, res) => {
 
 
 
-
-
-
 // Register
 app.get("/register", (req, res) => {
     res.render("register");
