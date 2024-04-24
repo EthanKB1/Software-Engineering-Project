@@ -81,6 +81,25 @@ app.get("/allCountries", async (req, res) => {
     //return res.render("countries");
 });
 
+/*
+Error with this as the sorting buttons dont work
+app.get("/allCountries", async (req, res) => {
+    let orderBy = ""; // Default order by clause
+    const { sort } = req.query;
+
+    // Check if sort parameter exists and set orderBy accordingly
+    if (sort === "asc") {
+        orderBy = "ORDER BY Population ASC";
+    } else if (sort === "desc") {
+        orderBy = "ORDER BY Population DESC";
+    }
+
+    // Fetch countries from the database with optional sorting by population
+    const [rows, fields] = await db.getCountries(orderBy);
+
+    // Render countries.pug with data passed as plain object
+    return res.render("countries", { rows, fields });
+});*/
 
 app.get("/allCountries/:id", async (req, res) => {
     const countryCode = req.params.id;
@@ -132,8 +151,15 @@ app.post("/allLanguages/:id", async (req, res) =>  {
 // Route to get population data for all countries
 app.get("/allPopulation", async (req, res) => {
     try {
-        // Fetch population data for all countries from the database service
-        const populationData = await db.getAllPopulation();
+        let populationData = await db.getAllPopulation();
+
+        // Sorting logic
+        const { sort } = req.query;
+        if (sort === 'asc') {
+            populationData.sort((a, b) => a.Population - b.Population);
+        } else if (sort === 'desc') {
+            populationData.sort((a, b) => b.Population - a.Population);
+        }
 
         // Render the population page with population data
         res.render("population", { populationData });
@@ -142,6 +168,7 @@ app.get("/allPopulation", async (req, res) => {
         res.status(500).json({ error: "An error occurred while fetching population data." });
     }
 });
+
 
 // Fetch and render populationByContinent view
 app.get("/populationByContinents", async (req, res) => {
