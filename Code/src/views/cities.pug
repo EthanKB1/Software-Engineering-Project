@@ -1,7 +1,13 @@
 extends layout.pug
+
 block appContent
   title Cities 
   h2 All Cities
+  // Add buttons for sorting
+  form(action="/allCities", method="GET")
+    button(type="submit" name="sort" value="asc") Sort by Population (Ascending)
+    button(type="submit" name="sort" value="desc") Sort by Population (Descending)
+
   table(border=1)
     thead
       th ID
@@ -13,7 +19,7 @@ block appContent
       each row, i in rows
         tr
           td.fit
-            a(href=`/cities/${i + 1}`) #{i + 1}
+            a(href=`/allCities/${i + 1}`) #{i + 1}
           td.fit #{row.CountryCode}
           td #{row.Name}
           td #{row.District}

@@ -32,9 +32,18 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
-//All Cities
-app.get("/allCities", async (req, res) => {
+// All Cities
+app.get("/allCities", async (req, res) => { // Change this route to /cities
+    let { sort } = req.query;
     const [rows, fields] = await db.getCities();
+
+    // Sort the cities by population if the query parameter is provided
+    if (sort && sort.toLowerCase() === 'desc') {
+        rows.sort((a, b) => b.Population - a.Population); // Sort in descending order
+    } else if (sort && sort.toLowerCase() === 'asc') {
+        rows.sort((a, b) => a.Population - b.Population); // Sort in ascending order
+    }
+
     /* Render cities.pug with data passed as plain object */
     return res.render("cities", { rows, fields });
 });
@@ -45,7 +54,7 @@ app.get("/allCities/:id", async (req, res) => {
     return res.render("city", { city });
 });
 
-//Updates a city by ID
+// Updates a city by ID
 app.post("/allCities/:id", async (req, res) => {
     const cityId = req.params.id;
     const { name } = req.body;
@@ -58,11 +67,12 @@ app.post("/allCities/:id", async (req, res) => {
     return res.redirect(`/allCities/${cityId}`);
 });
 
-//Returns JSON array of cities
+// Returns JSON array of cities
 app.get("/api/allCities", async (req, res) => {
     const [rows, fields] = await db.getCities();
     return res.send(rows);
 });
+
 
 //All Countries
 app.get("/allCountries", async (req, res) => {
