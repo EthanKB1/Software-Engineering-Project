@@ -255,6 +255,17 @@ async calculatePopulationByDistrict(district) {
     }
 }
  
+// Fetch information from the users table
+async getUsers() {
+    try {
+        const sql = "SELECT * FROM users";
+        const users = await this.query(sql);
+        return users;
+    } catch (error) {
+        console.error('Error fetching users:', error.message);
+        throw error;
+    }
+}
  
  
 }
