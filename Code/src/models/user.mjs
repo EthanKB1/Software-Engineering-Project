@@ -16,8 +16,8 @@ class User {
     try {
       var sql = "SELECT id FROM Users WHERE Users.email = ?";
       const result = await db.query(sql, [this.email]);
-      // TODO LOTS OF ERROR CHECKS HERE..
-      if (JSON.stringify(result) != '[]') {
+      // Check if result is not empty
+      if (result.length > 0) {
         this.id = result[0].id;
         return this.id;
       } else {
@@ -36,7 +36,7 @@ class User {
       const userId = await this.getIdFromEmail();
       // If user found, update password
       if (userId) {
-        await db.setUserPassword(userId, password);
+        await db.query("UPDATE Users SET password = ? WHERE id = ?", [password, userId]);
         return true; // Password set successfully
       } else {
         return false; // User not found
@@ -51,7 +51,7 @@ class User {
   async addUser(password) {
     try {
       // Add user with email and password
-      await db.addUser(this.email, password);
+      await db.query("INSERT INTO Users (email, password) VALUES (?, ?)", [this.email, password]);
       return true; // User added successfully
     } catch (error) {
       console.error("Error adding user:", error);
@@ -66,12 +66,13 @@ class User {
       const userId = await this.getIdFromEmail();
       // If user found, check password
       if (userId) {
-        const storedPassword = await db.getUserPassword(userId);
-        // Compare stored password with submitted password
-        if (storedPassword === submitted) {
-          return true; // Passwords match, authentication successful
+        const result = await db.query("SELECT password FROM Users WHERE id = ?", [userId]);
+        if (result.length > 0) {
+          const storedPassword = result[0].password;
+          // Compare stored password with submitted password
+          return storedPassword === submitted;
         } else {
-          return false; // Passwords don't match
+          return false; // Unable to retrieve password
         }
       } else {
         return false; // User not found
