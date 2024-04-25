@@ -318,29 +318,25 @@ app.get("/login", (req, res) => {
     res.render("login");
 });
 
-//authenticate test
-app.post('/authenticate', function (req, res) {
-    var params = req.body; // Declare params variable
-    var user = new User(params.email);
+// Authenticate endpoint
+app.post('/authenticate', async function (req, res) {
+    const params = req.body;
+    const user = new User(params.email);
     try {
-        user.getIdFromEmail().then(uId => {
-            if (uId) {
-                user.authenticate(params.password).then(match => {
-                    if (match) {
-                        res.redirect('/' + uId);
-                    }
-                    else {
-                        // TODO improve the user journey here
-                        res.send('invalid password');
-                    }
-                });
+        const uId = await user.getIdFromEmail();
+        if (uId) {
+            const match = await user.authenticate(params.password);
+            if (match) {
+                res.redirect('/');
+            } else {
+                res.send('Invalid password');
             }
-            else {
-                res.send('invalid email');
-            }
-        });
+        } else {
+            res.send('Invalid email');
+        }
     } catch (err) {
-        console.error(`Error while comparing `, err.message);
+        console.error(`Error during authentication:`, err);
+        res.status(500).send('Internal Server Error');
     }
 });
 
