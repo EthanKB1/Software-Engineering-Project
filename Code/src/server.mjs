@@ -25,7 +25,7 @@ const { conn } = db;
 /*index.get("/", function(req, res) {
     // Set up an array of data
     var test_data = ['one', 'two', 'three', 'four'];
-    // Send the array through to the template as a variable called data
+    // Send the array through to the template as a variable called dataa
     res.render("index", {'title':'My index page', 'heading':'My heading', 'data':test_data});
 });*/
 
