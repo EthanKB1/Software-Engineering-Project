@@ -1,15 +1,24 @@
-extends layout
-
-block appContent
+doctype html 
+html(lang="e")
+    body 
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title Login
     link(rel="stylesheet", href="login.css")
-    .container
-        h1 Login To World Pop
+
+    .container 
+        h1 Welcome Back!
         form(action="/authenticate", method="POST")
             .form-group
-                label(for="email") Enter Your Email:
+                .label(for="email") 
+                | Enter Your Email
+                span.req *
                 input(type="text", name="email", required)
             .form-group
-                label(for="password") Enter Your Password:
+                label(for="password") 
+                | Enter Your Password
+                span.req *
                 input(type="password", name="password", required)
+            p
+                a(href="/register")  New User? Register Here
             button(type="submit") Login
