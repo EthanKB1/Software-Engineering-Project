@@ -75,3 +75,24 @@ thead th {
     padding: 20px 40px; /* Add some padding */
     background-color: #d1f0f0; /* Optional background color */
   }
+
+  button[type="submit"] {
+  background-color: #151717dd; /* Changed button color to a primary blue */
+  color: rgb(255, 255, 255);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 2px;
+  margin-right: 15px;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  width: 17%;
+  font-size: 12px;
+  transition: background-color 0.3s ease; /* Added transition for hover effect */
+  float: left;
+}
+
+button[type="submit"]:hover {
+  background-color: #008fb3; /* Darker shade of blue on hover */
+}
