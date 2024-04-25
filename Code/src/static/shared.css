@@ -43,18 +43,21 @@ thead th {
 
 .top-right-container {
     position: absolute; /* Make it positioned relative to viewport */
-    top: 10px; /* Adjust top position from the top */
-    right: 10px; /* Adjust right position from the right */
+    top: 15px; /* Adjust top position from the top */
+    right: 15px; /* Adjust right position from the right */
+    bottom: 635px;
     display: flex; /* Make container a flexbox */
     align-items: center; /* Align content vertically */
+    text-align: center;
     border-radius: 5px; /* Optional rounded corners */
-    padding: 6px 12px; /* Add some padding */
+    padding: 0px 15px; /* Add some padding */
     background-color: #e5f5f5; /* Optional background color */
+    font-size: small;
   }
   
   .top-right-container img {
     margin-right: auto; /* Add margin for spacing */
-    width: 30%;
+    width: 20%;
   }
   
   .top-right-container a {
