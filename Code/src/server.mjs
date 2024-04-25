@@ -333,37 +333,32 @@ app.use(bodyParser.json());
       res.render("login");
   });
   
-  // Route to handle user authentication
-  app.post('/authenticate', function (req, res) {
+  // Route to handle user authentication using async/await
+app.post('/authenticate', async (req, res) => {
     const params = req.body;
     const user = new User(params.email);
+  
     try {
-      user.getIdFromEmail().then(uId => {
-        if (uId) {
-          user.authenticate(params.password).then(match => {
-            if (match) {
-              // Set session for the user
-              req.session.uid = uId;
-              req.session.loggedIn = true;
-              res.redirect('/single-student/' + uId);
-            } else {
-              // Handle invalid password
-              res.send('Invalid password');
-            }
-          }).catch(error => {
-            console.error(`Error authenticating user: `, error.message);
-            res.status(500).send('Internal Server Error');
-          });
+      const uId = await user.getIdFromEmail();
+  
+      if (uId) {
+        const match = await user.authenticate(params.password);
+  
+        if (match) {
+          // Set session for the user
+          req.session.uid = uId;
+          req.session.loggedIn = true;
+          res.redirect('/'); // Redirect to the homepage upon successful authentication
         } else {
-          // Handle invalid email
-          res.send('Invalid email');
+          // Handle invalid password
+          res.send('Invalid password');
         }
-      }).catch(error => {
-        console.error(`Error getting user ID from email: `, error.message);
-        res.status(500).send('Internal Server Error');
-      });
-    } catch (err) {
-      console.error(`Error while comparing `, err.message);
+      } else {
+        // Handle invalid email
+        res.send('Invalid email');
+      }
+    } catch (error) {
+      console.error(`Error during authentication:`, error.message);
       res.status(500).send('Internal Server Error');
     }
   });
