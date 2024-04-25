@@ -2,7 +2,6 @@ import express from "express";
 import mysql from "mysql2/promise";
 import session from 'express-session';
 import bodyParser from 'body-parser';
-import app from './server.mjs';
 import DatabaseService from "./services/database.services.mjs";
 import { User } from "./models/user.mjs";
 
