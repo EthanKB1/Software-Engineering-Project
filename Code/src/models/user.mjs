@@ -1,8 +1,8 @@
-// Import DatabaseService from database.services.mjs
+// Import DatabaseService from database.services.mjs file
 import DatabaseService from '../services/database.services.mjs';
 
 // Create a new instance of DatabaseService
-const db = new DatabaseService();s
+const db = new DatabaseService();
 
 class User {
     // Id of the user
