@@ -1,5 +1,6 @@
 import express from "express";
 import mysql from "mysql2/promise";
+import session from 'express-session';
 import DatabaseService from "./services/database.services.mjs";
 import { User } from "./models/user.mjs";
 
@@ -307,38 +308,85 @@ app.post("/district", async (req, res) => {
 });
 
 
-
-// Register
-app.get("/register", (req, res) => {
-    res.render("register");
-});
-
-// Login
-app.get("/login", (req, res) => {
-    res.render("login");
-});
-
-// Authenticate endpoint
-app.post('/authenticate', async function (req, res) {
+//-----
+// Set up session middleware
+app.use(session({
+    secret: 'secretkeysdfjsflyoifasd',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+  }));
+  
+  // Body Parser Middleware
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
+  
+  // Register route handler
+  app.get("/register", (req, res) => {
+      res.render("register");
+  });
+  
+  // Login route handler
+  app.get("/login", (req, res) => {
+      res.render("login");
+  });
+  
+  // Route to handle user authentication
+  app.post('/authenticate', function (req, res) {
     const params = req.body;
     const user = new User(params.email);
     try {
-        const uId = await user.getIdFromEmail();
+      user.getIdFromEmail().then(uId => {
         if (uId) {
-            const match = await user.authenticate(params.password);
+          user.authenticate(params.password).then(match => {
             if (match) {
-                res.redirect('/');
+              // Set session for the user
+              req.session.uid = uId;
+              req.session.loggedIn = true;
+              res.redirect('/single-student/' + uId);
             } else {
-                res.send('Invalid password');
+              // Handle invalid password
+              res.send('Invalid password');
             }
+          }).catch(error => {
+            console.error(`Error authenticating user: `, error.message);
+            res.status(500).send('Internal Server Error');
+          });
         } else {
-            res.send('Invalid email');
+          // Handle invalid email
+          res.send('Invalid email');
         }
-    } catch (err) {
-        console.error(`Error during authentication:`, err);
+      }).catch(error => {
+        console.error(`Error getting user ID from email: `, error.message);
         res.status(500).send('Internal Server Error');
+      });
+    } catch (err) {
+      console.error(`Error while comparing `, err.message);
+      res.status(500).send('Internal Server Error');
     }
-});
+  });
+  
+  // Route to test session
+  app.get("/", function(req, res) {
+    console.log(req.session);
+    if (req.session.uid) {
+      res.send('Welcome back, ' + req.session.uid + '!');
+    } else {
+      res.send('Please login to view this page!');
+    }
+    res.end();
+  });
+  
+  // Route to handle logout
+  app.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.redirect('/login');
+  });
+  
+  // Export the app for use in other modules
+  module.exports = app;
+
+//------
 
 // Account
 app.get("/account", async (req, res) => {
