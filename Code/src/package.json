@@ -11,8 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "datatables.net-dt": "^2.0.5",
+    "db": "^6.0.3",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "mysql2": "^3.9.2",
     "pug": "^3.0.2",
     "sortable.js": "^0.3.0",
