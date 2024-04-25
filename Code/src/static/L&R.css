@@ -1,6 +1,7 @@
 .container {
   background-color: #d3eeee; /* Changed to a lighter color */
   padding: 40px;
+  padding-right: 60px;
   border-radius: 8px;
   width: 400px;
   margin: 0 auto;
