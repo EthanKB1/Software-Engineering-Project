@@ -25,23 +25,10 @@ export default class DatabaseService {
     // Define the query method to execute SQL queries---
     async query(sql, params = []) {
         try {
-            // Validate SQL query
-            if (!sql || typeof sql !== 'string') {
-                throw new Error('Invalid SQL query');
-            }
-
-            // Execute SQL query with parameters
             const [rows, fields] = await this.conn.execute(sql, params);
-
-            // Check if any rows are returned
-            if (!rows || !Array.isArray(rows)) {
-                throw new Error('No rows returned');
-            }
-
-            // Return the result rows
             return rows;
         } catch (error) {
-            console.error('Error executing query:', error.message);
+            console.error("Error executing query:", error);
             throw error;
         }
     }
@@ -255,17 +242,7 @@ async calculatePopulationByDistrict(district) {
     }
 }
  
-// Fetch information from the users table
-async getUsers() {
-    try {
-        const sql = "SELECT * FROM users";
-        const users = await this.query(sql);
-        return users;
-    } catch (error) {
-        console.error('Error fetching users:', error.message);
-        throw error;
-    }
-}
+
  
  
 }
