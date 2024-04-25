@@ -428,7 +428,7 @@ app.get("/account", async (req, res) => {
         return res.redirect("/login");
     }
 
-    const sql = `SELECT id, email FROM user WHERE user.id = ${userId}`;
+    const sql = `SELECT id, email FROM users WHERE users.id = ${userId}`;
     const [results, cols] = await conn.execute(sql);
     const user = results[0];
 
@@ -458,7 +458,7 @@ app.post("/api/login", async (req, res) => {
         return res.status(401).send("Missing credentials");
     }
 
-    const sql = `SELECT id, password FROM user WHERE email = '${email}'`;
+    const sql = `SELECT id, password FROM users WHERE email = '${email}'`;
     const [results, cols] = await conn.execute(sql);
 
     const user = results[0];
