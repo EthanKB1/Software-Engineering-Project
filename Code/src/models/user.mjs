@@ -1,86 +1,85 @@
-// Get the functions in the db.js file to use
-import db from '../services/database.services.mjs';
- 
+// Import necessary modules
+const db = require('../services/db');
+const bcrypt = require("bcryptjs");
+
 class User {
   // Id of the user
   id;
   // Email of the user
   email;
- 
+
   constructor(email) {
     this.email = email;
   }
- 
+
   // Checks to see if the submitted email address exists in the Users table
   async getIdFromEmail() {
     try {
-      var sql = "SELECT id FROM Users WHERE Users.email = ?";
+      const sql = "SELECT id FROM Users WHERE email = ?";
       const result = await db.query(sql, [this.email]);
-      // TODO LOTS OF ERROR CHECKS HERE..
-      if (JSON.stringify(result) != '[]') {
+
+      if (result.length > 0) {
         this.id = result[0].id;
         return this.id;
       } else {
         return false;
       }
     } catch (error) {
+      // Handle errors here
       console.error("Error getting user ID from email:", error);
-      throw error;
+      return false;
     }
   }
- 
-  // Add a password to an existing user
+
+  // Set user password securely using bcrypt for an existing user
   async setUserPassword(password) {
     try {
-      // Get user ID using email
-      const userId = await this.getIdFromEmail();
-      // If user found, update password
-      if (userId) {
-        await db.setUserPassword(userId, password);
-        return true; // Password set successfully
-      } else {
-        return false; // User not found
-      }
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const sql = "UPDATE Users SET password = ? WHERE id = ?";
+      const result = await db.query(sql, [hashedPassword, this.id]);
+      return true;
     } catch (error) {
+      // Handle errors here
       console.error("Error setting user password:", error);
-      throw error;
+      return false;
     }
   }
- 
-  // Add a new record to the users table
+
+  // Hash and store password for a new user
   async addUser(password) {
     try {
-      // Add user with email and password
-      await db.addUser(this.email, password);
-      return true; // User added successfully
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const sql = "INSERT INTO Users (email, password) VALUES (?, ?)";
+      const result = await db.query(sql, [this.email, hashedPassword]);
+      this.id = result.insertId;
+      return true;
     } catch (error) {
+      // Handle errors here
       console.error("Error adding user:", error);
-      throw error;
+      return false;
     }
   }
- 
+
   // Test a submitted password against a stored password
   async authenticate(submitted) {
     try {
-      // Get user ID using email
-      const userId = await this.getIdFromEmail();
-      // If user found, check password
-      if (userId) {
-        const storedPassword = await db.getUserPassword(userId);
-        // Compare stored password with submitted password
-        if (storedPassword === submitted) {
-          return true; // Passwords match, authentication successful
-        } else {
-          return false; // Passwords don't match
-        }
+      const sql = "SELECT password FROM Users WHERE id = ?";
+      const result = await db.query(sql, [this.id]);
+
+      if (result.length > 0) {
+        const match = await bcrypt.compare(submitted, result[0].password);
+        return match;
       } else {
-        return false; // User not found
+        return false;
       }
     } catch (error) {
+      // Handle errors here
       console.error("Error authenticating user:", error);
-      throw error;
+      return false;
     }
   }
 }
- 
-export { User };
+
+module.exports = {
+  User
+};
