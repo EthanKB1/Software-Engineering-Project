@@ -2,7 +2,7 @@ import express from "express";
 import mysql from "mysql2/promise";
 import session from 'express-session';
 import DatabaseService from "./services/database.services.mjs";
-import User from "./models/user.mjs";
+import { User } from "./models/user.mjs";
 
 const app = express();
 const port = process.env.PORT || 3000;
