@@ -4,13 +4,13 @@ block appContent
     link(rel="stylesheet", href="L&R.css")
     .container
         h2 Register Here!
-        form(action='/set-password' method='POST')
+        form(action='/api/register' method='POST') // Corrected form action
           .form-group
-            label(for="email")
-            input(type="email", name="email", placeholder="Email *", required)
+            label(for="email") Email
+            input(type="email", name="email", placeholder="Email", required)
           .form-group
-            label(for="password")
-            input(type="password", name="password", placeholder="Password *", required)
+            label(for="password") Password
+            input(type="password", name="password", placeholder="Password", required)
           p
-              a(href="/login")  Already Have an Account? Log In Here
+              a(href="/login") Already Have an Account? Log In Here
           button(type="submit") Sign Up
