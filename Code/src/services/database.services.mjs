@@ -21,7 +21,31 @@ export default class DatabaseService {
  
         return new DatabaseService(conn);
     }
- 
+
+    // Define the query method to execute SQL queries---
+    async query(sql, params = []) {
+        try {
+            // Validate SQL query
+            if (!sql || typeof sql !== 'string') {
+                throw new Error('Invalid SQL query');
+            }
+
+            // Execute SQL query with parameters
+            const [rows, fields] = await this.conn.execute(sql, params);
+
+            // Check if any rows are returned
+            if (!rows || !Array.isArray(rows)) {
+                throw new Error('No rows returned');
+            }
+
+            // Return the result rows
+            return rows;
+        } catch (error) {
+            console.error('Error executing query:', error.message);
+            throw error;
+        }
+    }
+    // -----
     /* Get a list of all cities */
     async getCities() {
         try {
