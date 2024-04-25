@@ -25,7 +25,7 @@ const { conn } = db;
 /*index.get("/", function(req, res) {
     // Set up an array of data
     var test_data = ['one', 'two', 'three', 'four'];
-    // Send the array through to the template as a variable called dataa
+    // Send the array through to the template as a variable called data
     res.render("index", {'title':'My index page', 'heading':'My heading', 'data':test_data});
 });*/
 
@@ -386,6 +386,36 @@ app.use(bodyParser.json());
   
   // Export the app for use in other modules
   export default app;
+
+  // Define the route handler for setting passwords
+app.post("/set-password", async (req, res) => {
+    const { email, password } = req.body; // Extract email and password from request body
+
+    try {
+        const user = new User(email); // Create a new User instance
+        const userId = await user.getIdFromEmail(); // Get the user ID based on the email
+
+        if (userId) {
+            // If user ID is found, set the user's password
+            const setPasswordResult = await user.setUserPassword(password);
+
+            if (setPasswordResult) {
+                // If password is set successfully, send a success response
+                res.send('Password set successfully!');
+            } else {
+                // If setting password fails, send a 500 error response
+                res.status(500).send('Error setting password.');
+            }
+        } else {
+            // If user ID is not found, send a 404 error response
+            res.status(404).send('User not found.');
+        }
+    } catch (error) {
+        // Handle any errors and send a 500 error response
+        console.error('Error setting password:', error.message);
+        res.status(500).send('Internal server error.');
+    }
+});
 
 //------
 
