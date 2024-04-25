@@ -1,7 +1,7 @@
 import express from "express";
 import mysql from "mysql2/promise";
 import session from 'express-session';
-import { urlencoded, json } from 'body-parser';
+import bodyParser from 'body-parser';
 import DatabaseService from "./services/database.services.mjs";
 import { User } from "./models/user.mjs";
 
@@ -319,8 +319,8 @@ app.use(session({
   }));
   
   // Body Parser Middleware
-  app.use(urlencoded({ extended: false }));
-  app.use(json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
   
   // Register route handler
   app.get("/register", (req, res) => {
