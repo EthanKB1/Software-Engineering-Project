@@ -1,24 +1,16 @@
-doctype html 
-html(lang="e")
-    body 
-        meta(charset="UTF-8")
-        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+extends layout.pug
+block appContent
     title Login
     link(rel="stylesheet", href="L&R.css")
-
-    .container 
-        h1 Welcome Back!
+    .container
+        h2 Welcome Back!
         form(action="/authenticate", method="POST")
-            .form-group
-                .label(for="email") 
-                | Enter Your Email
-                span.req *
-                input(type="text", name="email", required)
-            .form-group
-                label(for="password") 
-                | Enter Your Password
-                span.req *
-                input(type="password", name="password", required)
-            p
-                a(href="/register")  New User? Register Here
-            button(type="submit") Login
+          .form-group
+            label(for="email")
+            input(type="email", name="email", placeholder="Email *", required)
+          .form-group
+            label(for="password")
+            input(type="password", name="password", placeholder="Password *", required)
+          p
+            a(href="/register") New User? Register Here
+          button(type="submit") Log In
