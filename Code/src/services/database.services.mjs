@@ -13,8 +13,8 @@ export default class DatabaseService {
     static async connect() {
         const conn = await mysql.createConnection({
             host: process.env.DATABASE_HOST || "localhost",
-            user: "root",
-            password: "",
+            user: "user",
+            password: "password",
             database: "world",
         });
 
