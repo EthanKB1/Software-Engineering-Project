@@ -15,28 +15,15 @@ body {
 
 h2 {
     margin-top: 0;
-    text-align: center;
 }
 
-.account-info {
+.account-info p {
     margin-bottom: 20px;
 }
 
-a {
-    color: #2466d8; /* Set link color */
-    text-decoration: none; /* Remove underline from links */
-}
-
-a:hover {
-    color: #0056b3; /* Change link color on hover */
-}
-
 /* Logout Button */
-button[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
+.btn-logout {
+    padding: 10px 20px;
     background-color: #2466d8;
     color: #fff;
     border: none;
@@ -45,6 +32,11 @@ button[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
+.btn-logout:hover {
     background-color: #0056b3;
+}
+
+/* Center Text */
+.text-center {
+    text-align: center;
 }
