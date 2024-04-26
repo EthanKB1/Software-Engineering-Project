@@ -12,7 +12,7 @@ export class User {
 
   async getIdFromEmail() {
     try {
-      const sql = "SELECT id FROM Users WHERE email = ?";
+      const sql = "SELECT id FROM users WHERE email = ?";
       const result = await db.query(sql, [this.email]);
 
       if (result.length > 0) {
