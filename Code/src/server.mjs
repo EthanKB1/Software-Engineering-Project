@@ -374,11 +374,17 @@ app.post('/authenticate', async (req, res) => {
     res.end();
   });
   
-  // Route to handle logout
-  app.get('/logout', function (req, res) {
-    req.session.destroy();
-    res.redirect('/login');
-  });
+  // Handle GET requests to /logout
+app.get('/logout', (req, res) => {
+    // Perform logout actions here (e.g., clearing session, redirecting to login page)
+    res.redirect('/login'); // Redirect to the login page after logout
+});
+
+// Handle POST requests to /logout
+app.post('/logout', (req, res) => {
+    // Perform logout actions here (e.g., clearing session, redirecting to login page)
+    res.redirect('/login'); // Redirect to the login page after logout
+});
   
   // Export the app for use in other modules
   export default app;
