@@ -43,46 +43,18 @@ export default class DatabaseService {
 
     async getCity(cityId) {
         const sql = `
-        SELECT city.*, country.Name AS Country, country.Region, country.Continent, country.Population as CountryPopulation
-        FROM city
-        INNER JOIN country ON country.Code = city.CountryCode
-        WHERE city.ID = ${cityId}
+            SELECT city.*, country.Name AS Country, country.Region, country.Continent, country.Population as CountryPopulation
+            FROM city
+            INNER JOIN country ON country.Code = city.CountryCode
+            WHERE city.ID = ${cityId}
         `;
         const [rows, fields] = await this.conn.execute(sql);
         const data = rows[0];
-        const city = new City(
-            data.id,
-            data.name,
-            data.countryCode,
-            data.district,
-            data.population
-        );
-        const country = new Country(
-            data.code,
-            data.name,
-            data.continent,
-            data.country,
-            data.region,
-            data.surfaceArea,
-            data.indepYear,
-            data.population,
-            data.lifeExpectancy,
-            data.GNP,
-            data.GNPOId,
-            data.localName,
-            data.governmentForm,
-            data.headOfState,
-            data.capital,
-            data.code2
-        );
-        city.country = country;
-        return city;
+        return data;
     }
 
     async removeCity(cityId) {
-        const res = await this.conn.execute(
-            `DELETE FROM city WHERE id = ${cityId}`
-        );
+        const res = await this.conn.execute(`DELETE FROM city WHERE id = ${cityId}`);
         console.log(res);
         return res;
     }
@@ -109,8 +81,7 @@ export default class DatabaseService {
 
     async getAllPopulation() {
         try {
-            const sql = `SELECT country.Name AS Country, country.Population, country.Continent
-                     FROM country`;
+            const sql = `SELECT country.Name AS Country, country.Population, country.Continent FROM country`;
             const [rows, fields] = await this.conn.execute(sql);
             return rows;
         } catch (error) {
@@ -125,10 +96,10 @@ export default class DatabaseService {
                 throw new Error("Continent parameter is missing.");
             }
             const sql = `
-            SELECT continent AS name, SUM(population) AS population
-            FROM country
-            WHERE continent = ?
-            GROUP BY continent;
+                SELECT continent AS name, SUM(population) AS population
+                FROM country
+                WHERE continent = ?
+                GROUP BY continent;
             `;
             const [rows, fields] = await this.conn.execute(sql, [continent]);
             return rows;
@@ -151,10 +122,7 @@ export default class DatabaseService {
 
     async getRegions() {
         try {
-            const sql = `
-                SELECT DISTINCT region
-                FROM country;
-            `;
+            const sql = `SELECT DISTINCT region FROM country;`;
             const [rows, fields] = await this.conn.execute(sql);
             return rows.map(row => row.region);
         } catch (error) {
