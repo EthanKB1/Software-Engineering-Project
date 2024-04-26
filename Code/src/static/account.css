@@ -1,0 +1,50 @@
+/* Basic Styles */
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 0; /* Remove default margin from body */
+    padding: 0; /* Remove default padding from body */
+    color: #333; /* Set text color */
+    background-color: #f4f4f4; /* Set background color */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.account-info {
+    margin-bottom: 20px;
+}
+
+a {
+    color: #2466d8; /* Set link color */
+    text-decoration: none; /* Remove underline from links */
+}
+
+a:hover {
+    color: #0056b3; /* Change link color on hover */
+}
+
+/* Logout Button */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #2466d8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}

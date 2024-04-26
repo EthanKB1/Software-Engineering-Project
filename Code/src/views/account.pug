@@ -1,0 +1,11 @@
+extends layout.pug
+block appContent
+    title Account
+    link(rel="stylesheet", href="account.css")
+    .container
+        h2 Account Information
+        .account-info
+            p Your registered email: #{user.email}
+            // Add more user information here if needed
+        p
+            a(href="/logout") Logout

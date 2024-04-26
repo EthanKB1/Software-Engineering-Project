@@ -423,11 +423,19 @@ app.get("/account", async (req, res) => {
         return res.redirect("/login");
     }
 
-    const sql = `SELECT id, email FROM users WHERE users.id = ${userId}`;
-    const [results, cols] = await conn.execute(sql);
-    const user = results[0];
+    try {
+        const sql = `SELECT id, email FROM Users WHERE id = ?`;
+        const [user] = await conn.execute(sql, [userId]);
 
-    res.render("account", { user });
+        if (!user.length) {
+            return res.status(404).send("User not found");
+        }
+
+        res.render("account", { user: user[0] });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 app.post("/api/register", async (req, res) => {
